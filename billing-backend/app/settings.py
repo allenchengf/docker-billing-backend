@@ -151,5 +151,5 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
 }
 
-REDIS_HOST = 'localhost'
+REDIS_HOST = '10.88.55.123'
 REDIS_PORT = 6379
