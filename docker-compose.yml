@@ -3,6 +3,7 @@ services:
 
     web:
       build: ./billing-backend
+      container_name: billing-api
       entrypoint: /docker_api/docker-entrypoint.sh
       command: python manage.py runserver 0.0.0.0:8000
       restart: always
@@ -15,7 +16,7 @@ services:
         - DJANGO_SUPERUSER_EMAIL=allen.chen@greatforti.com
 
       volumes:
-        - api_data:/docker_api
+        - api_data:/billing-backend
         # (HOST:CONTAINER)
       ports:
         - "8000:8000"
