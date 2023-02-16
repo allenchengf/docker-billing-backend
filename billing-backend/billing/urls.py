@@ -18,6 +18,7 @@ urlpatterns = [
     re_path(r'^sensors/$', views.SensorsView.as_view()),
     re_path(r'^channels/$', views.ChannelsView.as_view()),
     re_path(r'^user/$', views.UserView.as_view()),
+    re_path(r'^logout/$', views.LogoutView.as_view({"post": "create"})),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
