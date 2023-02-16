@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,8 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -128,28 +128,28 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
-#         'NAME': 'billing',         # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
-#         'USER': 'rdadmin',       # 设置的数据库用户名
-#         'PASSWORD': 'Kz8Zq)Rod^5qeZML',   # 设置的密码
-#         'HOST': '10.88.55.121',    # 本地主机或数据库服务器的ip
-#         'PORT': '3306',         # 数据库使用的端口
-#     }
-# }
-
-# db4free
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
-        'NAME': 'gfbilling',         # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
+        'NAME': 'billing',         # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
         'USER': 'rdadmin',       # 设置的数据库用户名
         'PASSWORD': 'Kz8Zq)Rod^5qeZML',   # 设置的密码
-        'HOST': 'db4free.net',    # 本地主机或数据库服务器的ip
+        'HOST': '10.88.55.121',    # 本地主机或数据库服务器的ip
         'PORT': '3306',         # 数据库使用的端口
     }
 }
+
+# # db4free
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
+#         'NAME': 'gfbilling',         # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
+#         'USER': 'rdadmin',       # 设置的数据库用户名
+#         'PASSWORD': 'Kz8Zq)Rod^5qeZML',   # 设置的密码
+#         'HOST': 'db4free.net',    # 本地主机或数据库服务器的ip
+#         'PORT': '3306',         # 数据库使用的端口
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -166,12 +166,16 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
 }
 
-# REDIS_HOST = '10.88.55.123'
-# REDIS_PORT = 6379
+REDIS_HOST = '10.88.55.123'
+REDIS_PORT = 6379
 
 # redis lab
-REDIS_HOST = 'redis-18940.c294.ap-northeast-1-2.ec2.cloud.redislabs.com'
-REDIS_PORT = 18940
-REDIS_PASS = 'H3IRlcJnGvfFAmQlMFWT6TZEd5w0e0f0'
+# REDIS_HOST = 'redis-18940.c294.ap-northeast-1-2.ec2.cloud.redislabs.com'
+# REDIS_PORT = 18940
+# REDIS_PASS = 'H3IRlcJnGvfFAmQlMFWT6TZEd5w0e0f0'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = ('*')
+CORS_ALLOW_HEADERS = ('*')

@@ -17,6 +17,7 @@ urlpatterns = [
     re_path(r'^subscriptions/(?P<pk>[0-9]+)$', views.SubscriptionsView.as_view()),
     re_path(r'^sensors/$', views.SensorsView.as_view()),
     re_path(r'^channels/$', views.ChannelsView.as_view()),
+    re_path(r'^user/$', views.UserView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

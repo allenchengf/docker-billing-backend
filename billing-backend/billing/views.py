@@ -13,9 +13,11 @@ from django.conf import settings
 from rest_framework.response import Response
 import json
 
-redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
-                                  port=settings.REDIS_PORT, db=0, password=settings.REDIS_PASS)
+# redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
+#                                   port=settings.REDIS_PORT, db=0, password=settings.REDIS_PASS)
 
+redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
+                                  port=settings.REDIS_PORT, db=0)
 
 class CustomersView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
@@ -90,3 +92,14 @@ class ChannelsView(generics.GenericAPIView):
         data = redis_instance.get('channels_menu')
         return Response(json.loads(data))
 
+class UserView(generics.GenericAPIView):
+    def get(self, request, *args, **krgs):
+        data = {
+            "data": {
+                "roles": ["admin"],
+                "introduction": "I am a super administrator",
+                 "avatar": "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+                 "name": "Super Admin"
+            }
+        }
+        return JsonResponse(data)
