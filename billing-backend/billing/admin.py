@@ -18,7 +18,7 @@ admin.site.register(Customer, CustomerAdmin)
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('customer_id', 'service_id', 'poc', 'status', 'created_at', 'updated_at')
+    list_display = ('customer_id', 'service_id', 'status', 'created_at', 'updated_at')
 
     '''filter options'''
     list_filter = ('service_id',)

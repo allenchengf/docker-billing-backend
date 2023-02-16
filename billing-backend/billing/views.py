@@ -66,7 +66,11 @@ class SubscriptionsView(mixins.RetrieveModelMixin,
     def get(self, request, *args, **krgs):
         subscriptions = self.get_queryset()
         serializer = self.serializer_class(subscriptions, many=True)
-        data = serializer.data
+        # data = serializer.data
+        data = {
+            'code': 20000,
+            'data': serializer.data
+        }
         return JsonResponse(data, safe=False)
 
     def post(self, request, *args, **krgs):
@@ -76,7 +80,11 @@ class SubscriptionsView(mixins.RetrieveModelMixin,
             serializer.is_valid(raise_exception=True)
             with transaction.atomic():
                 serializer.save()
-            data = serializer.data
+            # data = serializer.data
+            data = {
+                'code': 20000,
+                'data': serializer.data
+            }
         except Exception as e:
             data = {'error': str(e)}
         return JsonResponse(data)

@@ -36,7 +36,6 @@ class Subscription(models.Model):
     customer_id = models.IntegerField(null=False)
     product = models.CharField(verbose_name="Product name", max_length=100, choices=PRODUCT_CHOICES, default='uCDN')
     service_id = models.CharField(max_length=50, blank=True, null=True, unique=True)
-    poc = models.CharField(max_length=50, default='Production')
     status = models.CharField(max_length=20, default='In Use')
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
