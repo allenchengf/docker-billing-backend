@@ -164,6 +164,7 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
     'JWT_ALLOW_REFRESH': True,
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'billing.utils.jwt_response_payload_handler',
 }
 
 REDIS_HOST = '10.88.55.123'

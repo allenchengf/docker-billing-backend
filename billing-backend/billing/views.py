@@ -95,6 +95,7 @@ class ChannelsView(generics.GenericAPIView):
 class UserView(generics.GenericAPIView):
     def get(self, request, *args, **krgs):
         data = {
+            "code": 20000,
             "data": {
                 "roles": ["admin"],
                 "introduction": "I am a super administrator",
