@@ -98,7 +98,7 @@ class UserView(generics.GenericAPIView):
             "code": 20000,
             "data": {
                 "roles": ["admin"],
-                "introduction": "I am a super administrator",
+                "introduction": "I am a rd administrator",
                  "avatar": "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
                  "name": "Super Admin"
             }

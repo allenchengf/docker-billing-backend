@@ -3,6 +3,7 @@ def jwt_response_payload_handler(token, user=None, request=None, pk=None):
         'code': 20000,
         'data': {
             'token': token,
-            'pk': pk
+            'pk': pk,
+            'from': 'django'
         }
     }

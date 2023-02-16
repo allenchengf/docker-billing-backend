@@ -16,7 +16,6 @@ import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = 'django-insecure-qpzhgofw=3ffsy6z)%erzgv_uk+*f!s6n^_lh=ewbb0^n0m1g5
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -55,6 +53,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE_CLASSES = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
+]
+
 ROOT_URLCONF = 'app.urls'
 
 TEMPLATES = [
@@ -75,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -85,7 +88,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -105,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -116,7 +117,6 @@ TIME_ZONE = 'Asia/Taipei'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -130,12 +130,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
-        'NAME': 'billing',         # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
-        'USER': 'rdadmin',       # 设置的数据库用户名
-        'PASSWORD': 'Kz8Zq)Rod^5qeZML',   # 设置的密码
-        'HOST': '10.88.55.121',    # 本地主机或数据库服务器的ip
-        'PORT': '3306',         # 数据库使用的端口
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'billing',  # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
+        'USER': 'rdadmin',  # 设置的数据库用户名
+        'PASSWORD': 'Kz8Zq)Rod^5qeZML',  # 设置的密码
+        'HOST': '10.88.55.121',  # 本地主机或数据库服务器的ip
+        'PORT': '3306',  # 数据库使用的端口
     }
 }
 
@@ -180,3 +180,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_METHODS = ('*')
 CORS_ALLOW_HEADERS = ('*')
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:9528",
+    "http://127.0.0.1:9528",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+]
