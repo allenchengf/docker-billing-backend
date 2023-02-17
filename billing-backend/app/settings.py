@@ -185,12 +185,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_METHODS = ('*')
 CORS_ALLOW_HEADERS = ('*')
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:9528",
-    "http://127.0.0.1:9528",
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost",
-    "http://127.0.0.1",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:9528",
+#     "http://127.0.0.1:9528",
+# ]
+#
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost",
+#     "http://127.0.0.1",
+# ]
