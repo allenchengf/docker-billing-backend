@@ -34,7 +34,11 @@ class CustomersView(mixins.RetrieveModelMixin,
     def get(self, request, *args, **krgs):
         customers = self.get_queryset()
         serializer = self.serializer_class(customers, many=True)
-        data = serializer.data
+        # data = serializer.data
+        data = {
+            'code': 20000,
+            'data': serializer.data
+        }
         return JsonResponse(data, safe=False)
 
     def post(self, request, *args, **krgs):
@@ -44,17 +48,32 @@ class CustomersView(mixins.RetrieveModelMixin,
             serializer.is_valid(raise_exception=True)
             with transaction.atomic():
                 serializer.save()
-            data = serializer.data
+            # data = serializer.data
+            data = {
+                'code': 20000,
+                'data': serializer.data
+            }
         except Exception as e:
-            data = {'error': str(e)}
+            data = {'message': str(e)}
         return JsonResponse(data)
 
     def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+        self.update(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
 
     def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+        self.destroy(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
 
+        return JsonResponse(data)
 
 class SubscriptionsView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
@@ -86,15 +105,28 @@ class SubscriptionsView(mixins.RetrieveModelMixin,
                 'data': serializer.data
             }
         except Exception as e:
-            data = {'error': str(e)}
+            data = {
+                'message': str(e)
+            }
         return JsonResponse(data)
 
     def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+        self.update(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
 
     def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+        self.destroy(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
 
+        return JsonResponse(data)
 
 class SensorsView(generics.GenericAPIView):
     def get(self, request, *args, **krgs):
