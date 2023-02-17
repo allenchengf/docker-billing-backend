@@ -173,6 +173,7 @@ JWT_AUTH = {
 
 REDIS_HOST = '10.88.55.123'
 REDIS_PORT = 6379
+REDIS_PASS = ''
 
 # redis lab
 # REDIS_HOST = 'redis-18940.c294.ap-northeast-1-2.ec2.cloud.redislabs.com'

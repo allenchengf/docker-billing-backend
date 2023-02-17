@@ -22,7 +22,7 @@ from rest_framework_jwt.blacklist.serializers import BlacklistTokenSerializer
 #                                   port=settings.REDIS_PORT, db=0, password=settings.REDIS_PASS)
 
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
-                                  port=settings.REDIS_PORT, db=0)
+                                  port=settings.REDIS_PORT, db=0, password=settings.REDIS_PASS)
 
 class CustomersView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
