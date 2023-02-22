@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Customer
 from .models import Subscription
+from .models import BillingSummary
+
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,4 +13,10 @@ class CustomerSerializer(serializers.ModelSerializer):
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
+        fields = '__all__'
+
+
+class BillingSummarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BillingSummary
         fields = '__all__'

@@ -1,8 +1,10 @@
 from rest_framework.generics import GenericAPIView
 from .models import Customer
 from .models import Subscription
+from .models import BillingSummary
 from .serializers import CustomerSerializer
 from .serializers import SubscriptionSerializer
+from .serializers import BillingSummarySerializer
 from django.http import JsonResponse
 from django.db import transaction
 from rest_framework import status
@@ -18,11 +20,10 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.blacklist.models import BlacklistedToken
 from rest_framework_jwt.blacklist.serializers import BlacklistTokenSerializer
 
-# redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
-#                                   port=settings.REDIS_PORT, db=0, password=settings.REDIS_PASS)
 
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
                                   port=settings.REDIS_PORT, db=0, password=settings.REDIS_PASS)
+
 
 class CustomersView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
@@ -74,6 +75,7 @@ class CustomersView(mixins.RetrieveModelMixin,
         }
 
         return JsonResponse(data)
+
 
 class SubscriptionsView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
@@ -128,6 +130,59 @@ class SubscriptionsView(mixins.RetrieveModelMixin,
 
         return JsonResponse(data)
 
+
+class BillingSummaryView(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = BillingSummary.objects.all()
+    serializer_class = BillingSummarySerializer
+
+    def get(self, request, *args, **krgs):
+        BillingSummary = self.get_queryset()
+        serializer = self.serializer_class(BillingSummary, many=True)
+        data = {
+            'code': 20000,
+            'data': serializer.data
+        }
+        return JsonResponse(data, safe=False)
+
+    def post(self, request, *args, **krgs):
+        data = request.data
+        try:
+            serializer = self.serializer_class(data=data)
+            serializer.is_valid(raise_exception=True)
+            with transaction.atomic():
+                serializer.save()
+            data = {
+                'code': 20000,
+                'data': serializer.data
+            }
+        except Exception as e:
+            data = {
+                'message': str(e)
+            }
+        return JsonResponse(data)
+
+    def put(self, request, *args, **kwargs):
+        self.update(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
+
+    def delete(self, request, *args, **kwargs):
+        self.destroy(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
+
+
 class SensorsView(generics.GenericAPIView):
     def get(self, request, *args, **krgs):
         data = redis_instance.get('sensors_menu')
@@ -152,6 +207,7 @@ class UserView(generics.GenericAPIView):
             }
         }
         return JsonResponse(data)
+
 
 class LogoutView(ModelViewSet):
     queryset = BlacklistedToken.objects.all()

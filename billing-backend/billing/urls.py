@@ -15,6 +15,8 @@ urlpatterns = [
     re_path(r'^customers/(?P<pk>[0-9]+)$', views.CustomersView.as_view()),
     re_path(r'^subscriptions/$', views.SubscriptionsView.as_view()),
     re_path(r'^subscriptions/(?P<pk>[0-9]+)$', views.SubscriptionsView.as_view()),
+    re_path(r'^billing-summary/$', views.BillingSummaryView.as_view()),
+    re_path(r'^billing-summary/(?P<pk>[0-9]+)$', views.BillingSummaryView.as_view()),
     re_path(r'^sensors/$', views.SensorsView.as_view()),
     re_path(r'^channels/$', views.ChannelsView.as_view()),
     re_path(r'^user/$', views.UserView.as_view()),
