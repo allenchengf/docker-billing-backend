@@ -52,7 +52,6 @@ class BillingSummary(models.Model):
     service_id = models.CharField(max_length=255, blank=True, null=True)
     year = models.CharField(max_length=255, blank=True, null=True)
     month = models.CharField(max_length=255, blank=True, null=True)
-    month = models.CharField(max_length=255, blank=True, null=True)
     percentile_98_h = models.IntegerField(blank=True, null=True)
     percentile_98_hm = models.IntegerField(blank=True, null=True)
     percentile_98 = models.IntegerField(blank=True, null=True)
@@ -69,5 +68,23 @@ class BillingSummary(models.Model):
     monthly_report_done = models.IntegerField(blank=True, null=True, default=0)
     order = models.CharField(max_length=255, blank=True, null=True)
     sales_tag = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
+
+
+class BillingSummaryAggregates(models.Model):
+
+    group_name = models.CharField(max_length=255, null=True)
+    year = models.CharField(max_length=255, blank=True, null=True)
+    month = models.CharField(max_length=255, blank=True, null=True)
+    billing_list = models.JSONField(blank=True, null=True)
+    percentile_98_h = models.IntegerField(blank=True, null=True)
+    percentile_98_hm = models.IntegerField(blank=True, null=True)
+    percentile_98 = models.IntegerField(blank=True, null=True)
+    percentile_98_m = models.IntegerField(blank=True, null=True)
+    percentile_mbps_98 = models.IntegerField(blank=True, null=True)
+    data_progress = models.CharField(max_length=255, blank=True, null=True)
+    monthly_report_done = models.IntegerField(blank=True, null=True, default=0)
+    sequence = models.IntegerField(blank=True, null=True, default=1)
     created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)

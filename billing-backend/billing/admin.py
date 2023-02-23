@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Customer
 from .models import Subscription
 from .models import BillingSummary
+from .models import BillingSummaryAggregates
 
 
 # Register your models here.
@@ -58,10 +59,34 @@ class BillingSummaryAdmin(admin.ModelAdmin):
     )
 
     '''filter options'''
-    list_filter = ('service_id',)
+    list_filter = ('billing_id',)
 
     '''10 items per page'''
     list_per_page = 10
 
 
 admin.site.register(BillingSummary, BillingSummaryAdmin)
+
+
+class BillingSummaryAggregatesAdmin(admin.ModelAdmin):
+    list_display = (
+        'group_name',
+        'year',
+        'month',
+        'percentile_98_h',
+        'percentile_98_hm',
+        'percentile_98',
+        'percentile_98_m',
+        'percentile_mbps_98',
+        'created_at',
+        'updated_at'
+    )
+
+    '''filter options'''
+    list_filter = ('group_name',)
+
+    '''10 items per page'''
+    list_per_page = 10
+
+
+admin.site.register(BillingSummaryAggregates, BillingSummaryAggregatesAdmin)

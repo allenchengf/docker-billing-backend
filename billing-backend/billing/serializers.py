@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Customer
 from .models import Subscription
 from .models import BillingSummary
+from .models import BillingSummaryAggregates
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -19,4 +20,10 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class BillingSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = BillingSummary
+        fields = '__all__'
+
+
+class BillingSummaryAggregatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BillingSummaryAggregates
         fields = '__all__'
