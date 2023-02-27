@@ -3,10 +3,14 @@ from .models import Customer
 from .models import Subscription
 from .models import BillingSummary
 from .models import BillingSummaryAggregates
+from .models import BillingSetting
+# from .models import Sensor
 from .serializers import CustomerSerializer
 from .serializers import SubscriptionSerializer
 from .serializers import BillingSummarySerializer
 from .serializers import BillingSummaryAggregatesSerializer
+from .serializers import BillingSettingSerializer
+# from .serializers import SensorSerializer
 from django.http import JsonResponse
 from django.db import transaction
 from rest_framework import status
@@ -217,6 +221,59 @@ class BillingSummaryAggregatesView(mixins.RetrieveModelMixin,
                 'message': str(e)
             }
         return JsonResponse(data)
+
+    def put(self, request, *args, **kwargs):
+        self.update(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
+
+    def delete(self, request, *args, **kwargs):
+        self.destroy(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
+
+
+class BillingSettingView(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = BillingSetting.objects.all()
+    serializer_class = BillingSettingSerializer
+
+    def get(self, request, *args, **krgs):
+        BillingSettings = self.get_queryset()
+        serializer = self.serializer_class(BillingSettings, many=True)
+        data = {
+            'code': 20000,
+            'data': serializer.data
+        }
+        return JsonResponse(data, safe=False)
+
+    def post(self, request, *args, **krgs):
+        data = request.data
+        try:
+            serializer = self.serializer_class(data=data)
+            serializer.is_valid(raise_exception=True)
+            with transaction.atomic():
+                serializer.save()
+            data = {
+                'code': 20000,
+                'data': serializer.data
+            }
+        except Exception as e:
+            data = {
+                'message': str(e)
+            }
+        return JsonResponse(data)
+
 
     def put(self, request, *args, **kwargs):
         self.update(request, *args, **kwargs)

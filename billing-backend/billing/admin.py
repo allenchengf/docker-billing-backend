@@ -3,6 +3,9 @@ from .models import Customer
 from .models import Subscription
 from .models import BillingSummary
 from .models import BillingSummaryAggregates
+from .models import BillingSetting
+from .models import Sensor
+# from .models import SensorBillingSettingMapping
 
 
 # Register your models here.
@@ -90,3 +93,42 @@ class BillingSummaryAggregatesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BillingSummaryAggregates, BillingSummaryAggregatesAdmin)
+
+
+class BillingSettingAdmin(admin.ModelAdmin):
+    list_display = (
+        'customer_id',
+        'service_id',
+        'billing_id',
+        'cir',
+        'pir',
+        'provisioned_at',
+        'terminated_at',
+        'created_at',
+        'updated_at')
+
+    '''filter options'''
+    list_filter = ('billing_id',)
+
+    '''10 items per page'''
+    list_per_page = 10
+
+
+admin.site.register(BillingSetting, BillingSettingAdmin)
+
+
+class SensorAdmin(admin.ModelAdmin):
+    list_display = (
+        'sensor',
+        'prefix_list',
+        'created_at',
+        'updated_at')
+
+    '''filter options'''
+    list_filter = ('sensor',)
+
+    '''10 items per page'''
+    list_per_page = 10
+
+
+admin.site.register(Sensor, SensorAdmin)

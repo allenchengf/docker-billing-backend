@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Customer(models.Model):
-
     PROPERTY_CHOICES = (
         ('Presales', 'Presales'),
         ('Existing', 'Existing'),
@@ -11,7 +10,8 @@ class Customer(models.Model):
 
     customer_name = models.CharField(max_length=255, blank=True, null=True)
     customer_id = models.CharField(max_length=255, unique=True)
-    customer_property = models.CharField(verbose_name="Task status", max_length=20, choices=PROPERTY_CHOICES, default='Presales')
+    customer_property = models.CharField(verbose_name="Task status", max_length=20, choices=PROPERTY_CHOICES,
+                                         default='Presales')
     am = models.CharField(max_length=128, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
@@ -22,7 +22,6 @@ class Customer(models.Model):
 
 
 class Subscription(models.Model):
-
     PRODUCT_CHOICES = (
         ('uCDN', 'uCDN'),
         ('H7Connect-DC', 'H7Connect-DC'),
@@ -46,7 +45,6 @@ class Subscription(models.Model):
 
 
 class BillingSummary(models.Model):
-
     billing_id = models.CharField(max_length=255, blank=True, null=True)
     customer_id = models.CharField(max_length=255, blank=True, null=True)
     service_id = models.CharField(max_length=255, blank=True, null=True)
@@ -64,7 +62,7 @@ class BillingSummary(models.Model):
     fqdn_subscribed = models.TextField(blank=True, null=True)
     fqdn_additional = models.TextField(blank=True, null=True)
     pricing = models.CharField(max_length=255, blank=True, null=True)
-    prefixes_done = models.JSONField(blank=True, null=True,)
+    prefixes_done = models.JSONField(blank=True, null=True, )
     monthly_report_done = models.IntegerField(blank=True, null=True, default=0)
     order = models.CharField(max_length=255, blank=True, null=True)
     sales_tag = models.CharField(max_length=255, blank=True, null=True)
@@ -73,7 +71,6 @@ class BillingSummary(models.Model):
 
 
 class BillingSummaryAggregates(models.Model):
-
     group_name = models.CharField(max_length=255, null=True)
     year = models.CharField(max_length=255, blank=True, null=True)
     month = models.CharField(max_length=255, blank=True, null=True)
@@ -86,5 +83,28 @@ class BillingSummaryAggregates(models.Model):
     data_progress = models.CharField(max_length=255, blank=True, null=True)
     monthly_report_done = models.IntegerField(blank=True, null=True, default=0)
     sequence = models.IntegerField(blank=True, null=True, default=1)
+    created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
+
+
+class BillingSetting(models.Model):
+    customer_id = models.IntegerField(null=False)
+    service_id = models.IntegerField(null=False)
+    billing_id = models.CharField(max_length=255, null=False)
+    cir = models.IntegerField(blank=True, null=True)
+    pir = models.IntegerField(blank=True, null=True)
+    provisioned_at = models.CharField(max_length=255, blank=True, null=True)
+    terminated_at = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
+
+    def __str__(self):
+        return self.billing_id
+
+
+class Sensor(models.Model):
+    billing_settings = models.ForeignKey(BillingSetting, related_name='sensors', on_delete=models.CASCADE)
+    sensor = models.IntegerField(null=False)
+    prefix_list = models.JSONField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
