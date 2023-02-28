@@ -90,3 +90,23 @@ class BillingSettingAggregatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillingSettingAggregates
         fields = '__all__'
+
+    cir = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+
+    pir = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+
+    def validate_cir(self, value):
+        if not value:
+            return None
+        try:
+            return int(value)
+        except ValueError:
+            raise serializers.ValidationError('You must supply an integer')
+
+    def validate_pir(self, value):
+        if not value:
+            return None
+        try:
+            return int(value)
+        except ValueError:
+            raise serializers.ValidationError('You must supply an integer')
