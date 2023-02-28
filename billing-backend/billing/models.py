@@ -102,6 +102,19 @@ class BillingSetting(models.Model):
         return self.billing_id
 
 
+class BillingSettingAggregates(models.Model):
+    group_name = models.CharField(max_length=255, null=True)
+    billing_list = models.JSONField(blank=True, null=True)
+    cir = models.IntegerField(blank=True, null=True)
+    pir = models.IntegerField(blank=True, null=True)
+    permanent = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
+
+    def __str__(self):
+        return self.group_name
+
+
 class Sensor(models.Model):
     billing_settings = models.ForeignKey(BillingSetting, related_name='sensors', on_delete=models.CASCADE)
     sensor = models.IntegerField(null=False)

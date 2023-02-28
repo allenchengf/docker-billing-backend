@@ -5,6 +5,7 @@ from .models import BillingSummary
 from .models import BillingSummaryAggregates
 from .models import BillingSetting
 from .models import Sensor
+from .models import BillingSettingAggregates
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -83,3 +84,9 @@ class BillingSettingSerializer(serializers.ModelSerializer):
             sensor.prefix_list = sensors_data.get('prefix_list', sensor.prefix_list)
             sensor.save()
         return instance
+
+
+class BillingSettingAggregatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BillingSettingAggregates
+        fields = '__all__'

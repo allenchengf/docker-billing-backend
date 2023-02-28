@@ -5,7 +5,7 @@ from .models import BillingSummary
 from .models import BillingSummaryAggregates
 from .models import BillingSetting
 from .models import Sensor
-# from .models import SensorBillingSettingMapping
+from .models import BillingSettingAggregates
 
 
 # Register your models here.
@@ -132,3 +132,22 @@ class SensorAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Sensor, SensorAdmin)
+
+
+class BillingSettingAggregatesAdmin(admin.ModelAdmin):
+    list_display = (
+        'group_name',
+        'cir',
+        'pir',
+        'created_at',
+        'updated_at'
+    )
+
+    '''filter options'''
+    list_filter = ('group_name',)
+
+    '''10 items per page'''
+    list_per_page = 10
+
+
+admin.site.register(BillingSettingAggregates, BillingSettingAggregatesAdmin)

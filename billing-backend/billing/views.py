@@ -4,13 +4,13 @@ from .models import Subscription
 from .models import BillingSummary
 from .models import BillingSummaryAggregates
 from .models import BillingSetting
-# from .models import Sensor
+from .models import BillingSettingAggregates
 from .serializers import CustomerSerializer
 from .serializers import SubscriptionSerializer
 from .serializers import BillingSummarySerializer
 from .serializers import BillingSummaryAggregatesSerializer
 from .serializers import BillingSettingSerializer
-# from .serializers import SensorSerializer
+from .serializers import BillingSettingAggregatesSerializer
 from django.http import JsonResponse
 from django.db import transaction
 from rest_framework import status
@@ -199,6 +199,58 @@ class BillingSummaryAggregatesView(mixins.RetrieveModelMixin,
     def get(self, request, *args, **krgs):
         BillingSummaryAggregates = self.get_queryset()
         serializer = self.serializer_class(BillingSummaryAggregates, many=True)
+        data = {
+            'code': 20000,
+            'data': serializer.data
+        }
+        return JsonResponse(data, safe=False)
+
+    def post(self, request, *args, **krgs):
+        data = request.data
+        try:
+            serializer = self.serializer_class(data=data)
+            serializer.is_valid(raise_exception=True)
+            with transaction.atomic():
+                serializer.save()
+            data = {
+                'code': 20000,
+                'data': serializer.data
+            }
+        except Exception as e:
+            data = {
+                'message': str(e)
+            }
+        return JsonResponse(data)
+
+    def put(self, request, *args, **kwargs):
+        self.update(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
+
+    def delete(self, request, *args, **kwargs):
+        self.destroy(request, *args, **kwargs)
+        data = {
+            "code": 20000,
+            "data": 'success'
+        }
+
+        return JsonResponse(data)
+
+
+class BillingSettingAggregatesView(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = BillingSettingAggregates.objects.all()
+    serializer_class = BillingSettingAggregatesSerializer
+
+    def get(self, request, *args, **krgs):
+        BillingSettingAggregates = self.get_queryset()
+        serializer = self.serializer_class(BillingSettingAggregates, many=True)
         data = {
             'code': 20000,
             'data': serializer.data
