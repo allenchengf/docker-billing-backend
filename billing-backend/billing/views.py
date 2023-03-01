@@ -348,14 +348,20 @@ class BillingSettingView(mixins.RetrieveModelMixin,
 
 class SensorsView(generics.GenericAPIView):
     def get(self, request, *args, **krgs):
-        data = redis_instance.get('sensors_menu')
-        return Response(json.loads(data))
+        data = {
+            'code': 20000,
+            'data': json.loads(redis_instance.get('sensors_menu'))
+        }
+        return Response(data)
 
 
 class ChannelsView(generics.GenericAPIView):
     def get(self, request, *args, **krgs):
-        data = redis_instance.get('channels_menu')
-        return Response(json.loads(data))
+        data = {
+            'code': 20000,
+            'data': json.loads(redis_instance.get('channels_menu'))
+        }
+        return Response(data)
 
 
 class UserView(generics.GenericAPIView):
