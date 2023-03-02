@@ -119,13 +119,13 @@ admin.site.register(BillingSetting, BillingSettingAdmin)
 
 class SensorAdmin(admin.ModelAdmin):
     list_display = (
-        'sensor',
+        'sensor_id',
         'prefix_list',
         'created_at',
         'updated_at')
 
     '''filter options'''
-    list_filter = ('sensor',)
+    list_filter = ('sensor_id',)
 
     '''10 items per page'''
     list_per_page = 10

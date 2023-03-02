@@ -80,7 +80,7 @@ class BillingSettingSerializer(serializers.ModelSerializer):
 
         for sensors_data in sensors_data:
             sensor = sensors.pop(0)
-            sensor.sensor = sensors_data.get('sensor', sensor.sensor)
+            sensor.sensor_id = sensors_data.get('sensor_id', sensor.sensor_id)
             sensor.prefix_list = sensors_data.get('prefix_list', sensor.prefix_list)
             sensor.save()
         return instance

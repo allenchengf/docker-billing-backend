@@ -117,7 +117,7 @@ class BillingSettingAggregates(models.Model):
 
 class Sensor(models.Model):
     billing_settings = models.ForeignKey(BillingSetting, related_name='sensors', on_delete=models.CASCADE)
-    sensor = models.IntegerField(null=False)
+    sensor_id = models.IntegerField(null=False)
     prefix_list = models.JSONField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True, auto_now=True)
