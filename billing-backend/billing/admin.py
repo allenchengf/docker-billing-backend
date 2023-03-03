@@ -120,6 +120,7 @@ admin.site.register(BillingSetting, BillingSettingAdmin)
 class SensorAdmin(admin.ModelAdmin):
     list_display = (
         'sensor_id',
+        'channel_list',
         'prefix_list',
         'created_at',
         'updated_at')
