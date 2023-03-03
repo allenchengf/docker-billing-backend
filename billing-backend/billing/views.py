@@ -364,6 +364,15 @@ class ChannelsView(generics.GenericAPIView):
         return Response(data)
 
 
+class PrefixesView(generics.GenericAPIView):
+    def get(self, request, *args, **krgs):
+        data = {
+            'code': 20000,
+            'data': json.loads(redis_instance.get('prefixes_menu'))
+        }
+        return Response(data)
+
+
 class UserView(generics.GenericAPIView):
     def get(self, request, *args, **krgs):
         data = {
