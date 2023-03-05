@@ -116,7 +116,7 @@ class BillingSettingAggregates(models.Model):
 
 
 class Sensor(models.Model):
-    billing_settings = models.ForeignKey(BillingSetting, related_name='sensors', on_delete=models.CASCADE)
+    billing_settings = models.ForeignKey(BillingSetting, related_name='sensors', blank=True, null=True, on_delete=models.CASCADE)
     sensor_id = models.IntegerField(null=False)
     channel_list = models.JSONField(blank=True, null=True)
     prefix_list = models.JSONField(blank=True, null=True)
