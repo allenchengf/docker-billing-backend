@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_jwt',
     'rest_framework_jwt.blacklist',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -84,12 +85,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -130,14 +131,20 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DB_NAME = 'billing'
+DB_USER = 'rdadmin'
+DB_PASSWORD = 'Kz8Zq)Rod^5qeZML'
+DB_HOST = '10.88.55.121'
+DB_PORT = '3306'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
-        'NAME': 'billing',  # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
-        'USER': 'rdadmin',  # 设置的数据库用户名
-        'PASSWORD': 'Kz8Zq)Rod^5qeZML',  # 设置的密码
-        'HOST': '10.88.55.121',  # 本地主机或数据库服务器的ip
-        'PORT': '3306',  # 数据库使用的端口
+        'NAME': DB_NAME,  # 数据库名，Django不会帮你创建，需要自己进入数据库创建。
+        'USER': DB_USER,  # 设置的数据库用户名
+        'PASSWORD': DB_PASSWORD,  # 设置的密码
+        'HOST': DB_HOST,  # 本地主机或数据库服务器的ip
+        'PORT': DB_PORT,  # 数据库使用的端口
     }
 }
 
@@ -195,3 +202,6 @@ CORS_ALLOW_HEADERS = ('*')
 #     "http://localhost",
 #     "http://127.0.0.1",
 # ]
+
+CRONJOBS = (
+)
